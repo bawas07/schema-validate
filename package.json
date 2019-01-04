@@ -1,0 +1,19 @@
+{
+  "name": "schema-validate",
+  "version": "0.0.0",
+  "description": "using schema to validate an object",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bawas07/schema-validate.git"
+  },
+  "author": "bawas07",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bawas07/schema-validate/issues"
+  },
+  "homepage": "https://github.com/bawas07/schema-validate#readme"
+}
