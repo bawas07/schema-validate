@@ -22,5 +22,19 @@ module.exports = {
             return `parameter "${name}" harus ada`
         }
         return `"${key}" is required`
+    },
+
+    min: function (key, schema, lang = 'en') {
+        if (lang === 'id') {
+            return `jumlah karakter minimal "${key}" adalah "${schema}"`
+        }
+        return `"${key}" minimum character is "${schema}"`
+    },
+
+    minNum: function (key, schema, lang = 'en') {
+        if (lang === 'id') {
+            return `"${key}" harus lebih besar dari "${schema}"`
+        }
+        return `"${key}" must be bigger than "${schema}"`
     }
 }

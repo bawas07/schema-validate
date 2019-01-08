@@ -31,17 +31,7 @@ class SchemaValidator {
             const res = {}
             for (let i = 0; i < keys.length; i++) {
                 const name = keys[i]
-                const type = this.type(name, value[name], this.schm[name].type)
-                // check variable type
-                if (type !== 'pass' && (this.schm[name].required || value[name])) {
-                    if (err[name] == undefined) {
-                        err[name] = []
-                    }
-                    err[name].push(type)
-                } else {
-                    res[name] = value[name]
-                }
-
+                
                 // check variable mandatory
                 if (this.schm[name].required) {
                     if (!value[name]) {
@@ -49,6 +39,31 @@ class SchemaValidator {
                             err[name] = []
                         }
                         err[name].push(response.required(name, this.lang))
+                    }
+                }
+
+                const optional = (this.schm[name].required || value[name])
+                if (optional) {
+
+                    // check variable type
+                    const type = this.type(name, value[name], this.schm[name].type)
+                    if (type !== 'pass') {
+                        if (err[name] == undefined) {
+                            err[name] = []
+                        }
+                        err[name].push(type)
+                    } else {
+                        res[name] = value[name]
+                    }
+
+                    const minimal = this.min(name, value[name], this.schm[name].type, this.schm[name].min)
+                    if (minimal !== 'pass') {
+                        if (err[name] == undefined) {
+                            err[name] = []
+                        }
+                        err[name].push(minimal)
+                    } else {
+                        res[name] = value[name]
                     }
                 }
             }
@@ -74,24 +89,44 @@ class SchemaValidator {
         }
         return 'pass'
     }
+
+    /**
+     * check parameter's length and return pass or error
+     * @param {string} key name of field
+     * @param {string} value parameter's data
+     * @param {string} type schema's parameter's type
+     * @param {number} length schema's data
+     */
+    min(key, value, type, length) {
+        const leng = value.length
+        if (leng < length && type === 'string') {
+            return response.min(key, length, this.lang)
+        }
+
+        if (type === 'number' && value < length) {
+            return response.minNum(key, length, this.lang)
+        }
+        return 'pass'
+    }
 }
 
 const x = new SchemaValidator
-// x.language = 'id'
+x.language = 'id'
 x.schema = {
     name: {
         type: 'string',
-        required: true,
-        min: 10
+        // required: true,
+        min: 100
     },
     age: {
-        type: 'number'
+        type: 'number',
+        min: 10
     }
 }
 
 const input = {
-    // name: 'udin',
-    age: '20'
+    name: 'udin',
+    age: '5'
 }
 
 const run = async () => {
