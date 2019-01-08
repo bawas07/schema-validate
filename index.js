@@ -1,3 +1,5 @@
+const response = require('./response.js')
+
 class SchemaValidator {
 
     constructor() {
@@ -6,6 +8,10 @@ class SchemaValidator {
 
     set schema(schm) {
         this.schm = schm
+    }
+
+    set language(lang) {
+        this.lang = lang
     }
 
     async validateCB(value, cb) {
@@ -25,14 +31,13 @@ class SchemaValidator {
             const res = {}
             for (let i = 0; i < keys.length; i++) {
                 const name = keys[i]
-                const result = this.type(name, value[name], this.schm[name].type)
-
+                const type = this.type(name, value[name], this.schm[name].type)
                 // check variable type
-                if (result !== 'pass') {
+                if (type !== 'pass' && (this.schm[name].required || value[name])) {
                     if (err[name] == undefined) {
                         err[name] = []
                     }
-                    err[name].push(result)
+                    err[name].push(type)
                 } else {
                     res[name] = value[name]
                 }
@@ -43,10 +48,12 @@ class SchemaValidator {
                         if (err[name] == undefined) {
                             err[name] = []
                         }
-                        err[name].push(`parameter "${name}" harus ada`)
+                        err[name].push(response.required(name, this.lang))
                     }
                 }
             }
+
+            // return process
             const errKeys = Object.keys(err)
             if (errKeys.length > 0) return reject({ err })
             return resolve({ data: res })
@@ -54,19 +61,23 @@ class SchemaValidator {
 
     }
 
+    /**
+     * check parameter's type and return pass or error
+     * @param {string} key name of field
+     * @param {string} value parameter's data
+     * @param {string} lang define return's language
+     */
     type(key, value, schema) {
-        // console.log({key, value, schema})
         const type = typeof value
-        // console.log(type)
-        // console.log(schema)
         if (schema !== type) {
-            return `parameter "${key}" harus berupa "${schema}"`
+            return response.type(key, schema, this.lang)
         }
         return 'pass'
     }
 }
 
 const x = new SchemaValidator
+// x.language = 'id'
 x.schema = {
     name: {
         type: 'string',
