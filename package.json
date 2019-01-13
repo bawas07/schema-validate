@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "pretest": "eslint --ignore-path .gitignore . --fix",
-    "pre-push": "npm run lint"
+    "pretest": "./node_modules/.bin/eslint --ignore-path .gitignore . --fix",
+    "prepush": "npm run pretest"
   },
   "repository": {
     "type": "git",
