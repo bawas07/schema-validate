@@ -1,10 +1,11 @@
-// const response = require('./src/response.js')
-const check = require('./src/check.js')
+const response = require("./src/response.js")
+const check = require("./src/check.js")
 
 class SchemaValidator {
 
     constructor() {
-
+        // this.err = {}
+        // this.res = {}
     }
 
     set schema(schm) {
@@ -47,7 +48,7 @@ class SchemaValidator {
 
                     // check variable type
                     const type = check.type(name, value[name], this.schm[name].type)
-                    if (type !== 'pass') {
+                    if (type !== "pass") {
                         if (err[name] == undefined) {
                             err[name] = []
                         }
@@ -58,7 +59,7 @@ class SchemaValidator {
 
                     // check minimal number or length
                     const minimal = check.min(name, value[name], this.schm[name].type, this.schm[name].min)
-                    if (minimal !== 'pass') {
+                    if (minimal !== "pass") {
                         if (err[name] == undefined) {
                             err[name] = []
                         }
@@ -69,7 +70,7 @@ class SchemaValidator {
 
                     // check maximal number or length
                     const maximal = check.max(name, value[name], this.schm[name].type, this.schm[name].max)
-                    if (maximal !== 'pass') {
+                    if (maximal !== "pass") {
                         if (err[name] == undefined) {
                             err[name] = []
                         }
@@ -123,28 +124,28 @@ class SchemaValidator {
 }
 
 const x = new SchemaValidator
-x.language = 'id'
+x.language = "id"
 x.schema = {
     name: {
-        type: 'string',
+        type: "string",
         // required: true,
         // max: 2
     },
     age: {
-        type: 'number',
+        type: "number",
         // max: 2
     }
 }
 
 const input = {
-    name: 'udin',
+    name: "udin",
     age: 5
 }
 
 const run = async () => {
-    console.log('\n\n----------------')
-    console.log('PROMISE')
-    console.log('----------------')
+    console.log("\n\n----------------")
+    console.log("PROMISE")
+    console.log("----------------")
     try{
         const value = await x.validate(input)
         console.log( value )
@@ -156,9 +157,9 @@ const run = async () => {
 run()
 
 x.validateCB(input, (err, res) => {
-    console.log('\n\n----------------')
-    console.log('CALLBACK')
-    console.log('----------------')
+    console.log("\n\n----------------")
+    console.log("CALLBACK")
+    console.log("----------------")
     if (err) {
         return console.log(err)
     }
