@@ -36,5 +36,19 @@ module.exports = {
             return `"${key}" harus lebih besar dari "${schema}"`
         }
         return `"${key}" must be bigger than "${schema}"`
+    },
+
+    max: function (key, schema, lang = 'en') {
+        if (lang === 'id') {
+            return `jumlah karakter maksimal "${key}" adalah "${schema}"`
+        }
+        return `"${key}" maximal character is "${schema}"`
+    },
+
+    maxNum: function (key, schema, lang = 'en') {
+        if (lang === 'id') {
+            return `"${key}" harus lebih kecil dari "${schema}"`
+        }
+        return `"${key}" must be smaller than "${schema}"`
     }
 }
