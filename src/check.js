@@ -1,4 +1,4 @@
-const response = require('./response.js')
+const response = require('./response.js');
 
 
 module.exports = {
@@ -9,11 +9,11 @@ module.exports = {
      * @param {string} lang define return's language
      */
     type: (key, value, schema) => {
-        const type = typeof value
+        const type = typeof value;
         if (schema !== type) {
-            return response.type(key, schema, this.lang)
+            return response.type(key, schema, this.lang);
         }
-        return 'pass'
+        return 'pass';
     },
 
     /**
@@ -24,15 +24,15 @@ module.exports = {
      * @param {number} length schema's data
      */
     min: (key, value, type, length) => {
-        const leng = value.length
+        const leng = value.length;
         if (leng < length && type === 'string') {
-            return response.min(key, length, this.lang)
+            return response.min(key, length, this.lang);
         }
 
         if (type === 'number' && value < length) {
-            return response.minNum(key, length, this.lang)
+            return response.minNum(key, length, this.lang);
         }
-        return 'pass'
+        return 'pass';
     },
 
     /**
@@ -43,14 +43,14 @@ module.exports = {
      * @param {number} length schema's data
      */
     max: (key, value, type, length) => {
-        const leng = value.length
+        const leng = value.length;
         if (leng > length && type === 'string') {
-            return response.min(key, length, this.lang)
+            return response.min(key, length, this.lang);
         }
 
         if (type === 'number' && value > length) {
-            return response.minNum(key, length, this.lang)
+            return response.minNum(key, length, this.lang);
         }
-        return 'pass'
+        return 'pass';
     }
-}
+};

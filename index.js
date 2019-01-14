@@ -142,8 +142,6 @@ const input = {
     age: 5
 };
 
-const variable = 0;
-
 const run = async () => {
     console.log('\n\n----------------');
     console.log('PROMISE');
