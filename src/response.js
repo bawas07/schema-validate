@@ -19,7 +19,7 @@ module.exports = {
      */
     required: function (key, lang = 'en') {
         if (lang === 'id') {
-            return `parameter "${keys}" harus ada`;
+            return `parameter "${key}" harus ada`;
         }
         return `"${key}" is required`;
     },

@@ -6,8 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "pretest": "./node_modules/.bin/eslint --ignore-path .gitignore . --fix",
-    "prepush": "npm run pretest",
-    "precommit": "npm run pretest"
+    "prepush": "npm run pretest"
   },
   "repository": {
     "type": "git",
