@@ -7,9 +7,9 @@ module.exports = {
      */
     type: function (key, schema, lang = 'en') {
         if (lang === 'id') {
-            return `"${key}" harus berupa "${schema}"`
+            return `"${key}" harus berupa "${schema}"`;
         }
-        return `"${key}" type must be "${schema}"`
+        return `"${key}" type must be "${schema}"`;
     },
 
     /**
@@ -19,36 +19,36 @@ module.exports = {
      */
     required: function (key, lang = 'en') {
         if (lang === 'id') {
-            return `parameter "${key}" harus ada`
+            return `parameter "${keys}" harus ada`;
         }
-        return `"${key}" is required`
+        return `"${key}" is required`;
     },
 
     min: function (key, schema, lang = 'en') {
         if (lang === 'id') {
-            return `jumlah karakter minimal "${key}" adalah "${schema}"`
+            return `jumlah karakter minimal "${key}" adalah "${schema}"`;
         }
-        return `"${key}" minimum character is "${schema}"`
+        return `"${key}" minimum character is "${schema}"`;
     },
 
     minNum: function (key, schema, lang = 'en') {
         if (lang === 'id') {
-            return `"${key}" harus lebih besar dari "${schema}"`
+            return `"${key}" harus lebih besar dari "${schema}"`;
         }
-        return `"${key}" must be bigger than "${schema}"`
+        return `"${key}" must be bigger than "${schema}"`;
     },
 
     max: function (key, schema, lang = 'en') {
         if (lang === 'id') {
-            return `jumlah karakter maksimal "${key}" adalah "${schema}"`
+            return `jumlah karakter maksimal "${key}" adalah "${schema}"`;
         }
-        return `"${key}" maximal character is "${schema}"`
+        return `"${key}" maximal character is "${schema}"`;
     },
 
     maxNum: function (key, schema, lang = 'en') {
         if (lang === 'id') {
-            return `"${key}" harus lebih kecil dari "${schema}"`
+            return `"${key}" harus lebih kecil dari "${schema}"`;
         }
-        return `"${key}" must be smaller than "${schema}"`
+        return `"${key}" must be smaller than "${schema}"`;
     }
-}
+};
