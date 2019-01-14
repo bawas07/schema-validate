@@ -1,5 +1,5 @@
-const response = require("./src/response.js")
-const check = require("./src/check.js")
+const response = require('./src/response.js');
+const check = require('./src/check.js');
 
 class SchemaValidator {
 
@@ -9,83 +9,83 @@ class SchemaValidator {
     }
 
     set schema(schm) {
-        this.schm = schm
+        this.schm = schm;
     }
 
     set language(lang) {
-        this.lang = lang
+        this.lang = lang;
     }
 
     async validateCB(value, cb) {
         try {
-            const res = await this.validate(value)
-            return cb(null, res)
+            const res = await this.validate(value);
+            return cb(null, res);
         } catch (err) {
-            return cb(err, null)
+            return cb(err, null);
         }
     }
 
     validate(value) {
         return new Promise((resolve, reject) => {
-            const keys = Object.keys(this.schm)
-            const err = {}
-            const res = {}
+            const keys = Object.keys(this.schm);
+            const err = {};
+            const res = {};
             for (let i = 0; i < keys.length; i++) {
-                const name = keys[i]
+                const name = keys[i];
 
                 // check variable mandatory
                 if (this.schm[name].required) {
                     if (!value[name]) {
                         if (err[name] == undefined) {
-                            err[name] = []
+                            err[name] = [];
                         }
-                        err[name].push(response.required(name, this.lang))
+                        err[name].push(response.required(name, this.lang));
                     }
                 }
 
-                const optional = (this.schm[name].required || value[name])
+                const optional = (this.schm[name].required || value[name]);
                 if (optional) {
 
                     // check variable type
-                    const type = check.type(name, value[name], this.schm[name].type)
-                    if (type !== "pass") {
+                    const type = check.type(name, value[name], this.schm[name].type);
+                    if (type !== 'pass') {
                         if (err[name] == undefined) {
-                            err[name] = []
+                            err[name] = [];
                         }
-                        err[name].push(type)
+                        err[name].push(type);
                     } else {
-                        res[name] = value[name]
+                        res[name] = value[name];
                     }
 
                     // check minimal number or length
-                    const minimal = check.min(name, value[name], this.schm[name].type, this.schm[name].min)
-                    if (minimal !== "pass") {
+                    const minimal = check.min(name, value[name], this.schm[name].type, this.schm[name].min);
+                    if (minimal !== 'pass') {
                         if (err[name] == undefined) {
-                            err[name] = []
+                            err[name] = [];
                         }
-                        err[name].push(minimal)
+                        err[name].push(minimal);
                     } else {
-                        res[name] = value[name]
+                        res[name] = value[name];
                     }
 
                     // check maximal number or length
-                    const maximal = check.max(name, value[name], this.schm[name].type, this.schm[name].max)
-                    if (maximal !== "pass") {
+                    const maximal = check.max(name, value[name], this.schm[name].type, this.schm[name].max);
+                    if (maximal !== 'pass') {
                         if (err[name] == undefined) {
-                            err[name] = []
+                            err[name] = [];
                         }
-                        err[name].push(maximal)
+                        err[name].push(maximal);
                     } else {
-                        res[name] = value[name]
+                        res[name] = value[name];
                     }
                 }
             }
 
             // return process
-            const errKeys = Object.keys(err)
-            if (errKeys.length > 0) return reject({ err })
-            return resolve({ data: res })
-        })
+            const errKeys = Object.keys(err);
+            if (errKeys.length > 0) return reject({ err });
+            return resolve({ data: res });
+        });
 
     }
 
@@ -123,45 +123,47 @@ class SchemaValidator {
     // }
 }
 
-const x = new SchemaValidator
-x.language = "id"
+const x = new SchemaValidator;
+x.language = 'id';
 x.schema = {
     name: {
-        type: "string",
+        type: 'string',
         // required: true,
         // max: 2
     },
     age: {
-        type: "number",
+        type: 'number',
         // max: 2
     }
-}
+};
 
 const input = {
-    name: "udin",
+    name: 'udin',
     age: 5
-}
+};
+
+const variable = 0;
 
 const run = async () => {
-    console.log("\n\n----------------")
-    console.log("PROMISE")
-    console.log("----------------")
+    console.log('\n\n----------------');
+    console.log('PROMISE');
+    console.log('----------------');
     try{
-        const value = await x.validate(input)
-        console.log( value )
+        const value = await x.validate(input);
+        console.log( value );
     } catch (err) {
-        console.log( err )
+        console.log( err );
     }
-}
+};
 // console.log(y)
-run()
+run();
 
 x.validateCB(input, (err, res) => {
-    console.log("\n\n----------------")
-    console.log("CALLBACK")
-    console.log("----------------")
+    console.log('\n\n----------------');
+    console.log('CALLBACK');
+    console.log('----------------');
     if (err) {
-        return console.log(err)
+        return console.log(err);
     }
-    return console.log(res)
-})
+    return console.log(res);
+});

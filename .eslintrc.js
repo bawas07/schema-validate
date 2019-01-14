@@ -19,11 +19,14 @@ module.exports = {
         ],
         "quotes": [
             "error",
-            "double"
+            "single"
         ],
         "semi": [
             "error",
-            "never"
+            "always"
+        ],
+        "no-console": [
+            "warn"
         ]
     }
 };
