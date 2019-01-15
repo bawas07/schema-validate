@@ -52,5 +52,17 @@ module.exports = {
             return response.minNum(key, length, this.lang);
         }
         return 'pass';
+    },
+
+    enum: (key, value, allowed) => {
+        console.log({key, value, allowed})
+        if (!allowed) {
+            return 'pass'
+        }
+        const val = allowed.includes(value);
+        if (val) {
+            return 'pass';
+        }
+        return response.enum(key, allowed, this.lang);
     }
 };

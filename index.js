@@ -78,6 +78,17 @@ class SchemaValidator {
                     } else {
                         res[name] = value[name];
                     }
+                    // check restricted value input (enum)
+                    const enumerate = check.enum(name, value[name], this.schm[name].enum);
+                    // console.log({enumerate, x:this.schm[name]})
+                    if (enumerate !== 'pass') {
+                        if (err[name] == undefined) {
+                            err[name] = [];
+                        }
+                        err[name].push(enumerate);
+                    } else {
+                        res[name] = value[name];
+                    }
                 }
             }
 
@@ -130,6 +141,7 @@ x.schema = {
         type: 'string',
         // required: true,
         // max: 2
+        enum: ['udin', 'ujang', 'usep']
     },
     age: {
         type: 'number',
@@ -138,7 +150,7 @@ x.schema = {
 };
 
 const input = {
-    name: 'udin',
+    name: 'usep',
     age: 5
 };
 

@@ -50,5 +50,12 @@ module.exports = {
             return `"${key}" harus lebih kecil dari "${schema}"`;
         }
         return `"${key}" must be smaller than "${schema}"`;
+    },
+
+    enum: function (key, allowed, lang = 'en') {
+        if (lang === 'id') {
+            return `"${key}" harus diantara [${allowed.join(', ')}]`;
+        }
+        return `"${key}" allowed value is [${allowed.join(', ')}]`;
     }
 };
